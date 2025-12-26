@@ -1,12 +1,12 @@
 body {
   margin: 0;
-  background-color: #001a33;          /* Dark Blue */
+  background-color: #001a33; /* Dark Blue */
   font-family: Arial, sans-serif;
   color: white;
   text-align: center;
 }
 
-/* Top Taskbar */
+/* Navbar */
 .navbar {
   background-color: #003366;
   padding: 15px;
@@ -16,6 +16,7 @@ body {
   box-shadow: 0 0 10px black;
   position: sticky;
   top: 0;
+  z-index: 10;
 }
 
 .navbar input {
@@ -58,7 +59,7 @@ hr {
   border: 2px solid #0077cc;
 }
 
-/* Results box */
+/* Results Box */
 .results-box {
   margin-top: 40px;
   font-size: 20px;
@@ -69,4 +70,5 @@ hr {
   margin-left: auto;
   margin-right: auto;
   box-shadow: 0 0 10px #000000;
+  word-wrap: break-word;
 }
