@@ -1,29 +1,37 @@
-// Fake player stat database for demonstration
-const sampleData = {
-  "Cody": {kills: 25, deaths: 3, balance: 5400},
-  "Steve": {kills: 10, deaths: 9, balance: 1200},
-  "Player123": {kills: 99, deaths: 1, balance: 999999}
-};
+// Update this with your Railway Function URL
+const BACKEND_URL = "https://function-bun-production-2b41.up.railway.app/";
 
-function searchPlayer() {
-  let user = document.getElementById("usernameInput").value.trim();
-  let box = document.getElementById("results");
+async function searchPlayer() {
+  const username = document.getElementById("usernameInput").value.trim();
+  const resultsBox = document.getElementById("results");
 
-  if(user === "") {
-    box.innerHTML = "Please enter a username.";
+  if (!username) {
+    resultsBox.innerHTML = "Please enter a username.";
     return;
   }
 
-  let player = sampleData[user];
+  resultsBox.innerHTML = "Loading stats...";
 
-  if(player) {
-    box.innerHTML = `
-      <b>${user}</b><br><br>
-      🗡 Kills: ${player.kills}<br>
-      💀 Deaths: ${player.deaths}<br>
-      💰 Balance: $${player.balance}
+  try {
+    // Send username as a query parameter
+    const res = await fetch(`${BACKEND_URL}?username=${encodeURIComponent(username)}`);
+    
+    if (!res.ok) {
+      throw new Error("Player not found or API error");
+    }
+
+    const data = await res.json();
+
+    // Update these keys based on your API response if needed
+    resultsBox.innerHTML = `
+      <b>${data.username}</b><br><br>
+      🗡 Kills: ${data.kills}<br>
+      💀 Deaths: ${data.deaths}<br>
+      💰 Balance: $${data.balance}<br>
+      ⏱ Playtime: ${data.playtime}<br>
+      💎 Shards: ${data.shards}
     `;
-  } else {
-    box.innerHTML = `<b>${user}</b> not found in database.`;
+  } catch (err) {
+    resultsBox.innerHTML = `<b>Error:</b> ${err.message}`;
   }
 }
