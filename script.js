@@ -14,24 +14,41 @@ async function searchPlayer() {
 
   try {
     // Send username as a query parameter
-    const res = await fetch(`${BACKEND_URL}?username=${encodeURIComponent(username)}`);
-    
+    const res = await fetch(`${BACKEND_URL}?username=${encodeURIComponent(username)}`, {
+      method: "GET",
+      headers: {
+        "Accept": "application/json"
+      }
+    });
+
     if (!res.ok) {
-      throw new Error("Player not found or API error");
+      // Handle different HTTP errors
+      if (res.status === 404) throw new Error("Player not found");
+      throw new Error(`Server error: ${res.status}`);
     }
 
     const data = await res.json();
 
-    // Update these keys based on your API response if needed
+    // Ensure keys exist (handle unexpected API changes)
+    const kills = data.kills ?? "N/A";
+    const deaths = data.deaths ?? "N/A";
+    const balance = data.balance ?? "N/A";
+    const playtime = data.playtime ?? "N/A";
+    const shards = data.shards ?? "N/A";
+    const playerName = data.username ?? username;
+
     resultsBox.innerHTML = `
-      <b>${data.username}</b><br><br>
-      🗡 Kills: ${data.kills}<br>
-      💀 Deaths: ${data.deaths}<br>
-      💰 Balance: $${data.balance}<br>
-      ⏱ Playtime: ${data.playtime}<br>
-      💎 Shards: ${data.shards}
+      <b>${playerName}</b><br><br>
+      🗡 Kills: ${kills}<br>
+      💀 Deaths: ${deaths}<br>
+      💰 Balance: $${balance}<br>
+      ⏱ Playtime: ${playtime}<br>
+      💎 Shards: ${shards}
     `;
+
   } catch (err) {
+    console.error(err);
     resultsBox.innerHTML = `<b>Error:</b> ${err.message}`;
   }
 }
+
