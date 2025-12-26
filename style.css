@@ -1,0 +1,72 @@
+body {
+  margin: 0;
+  background-color: #001a33;          /* Dark Blue */
+  font-family: Arial, sans-serif;
+  color: white;
+  text-align: center;
+}
+
+/* Top Taskbar */
+.navbar {
+  background-color: #003366;
+  padding: 15px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  box-shadow: 0 0 10px black;
+  position: sticky;
+  top: 0;
+}
+
+.navbar input {
+  padding: 10px;
+  width: 250px;
+  border: none;
+  border-radius: 5px;
+  outline: none;
+}
+
+.navbar button {
+  padding: 10px 18px;
+  border: none;
+  background-color: #0055aa;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.navbar button:hover {
+  background-color: #0077cc;
+}
+
+/* Main Content */
+.container {
+  margin-top: 60px;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+h1 {
+  font-size: 50px;
+  margin-bottom: 10px;
+}
+
+hr {
+  width: 350px;
+  border: 2px solid #0077cc;
+}
+
+/* Results box */
+.results-box {
+  margin-top: 40px;
+  font-size: 20px;
+  background-color: #002244;
+  padding: 20px;
+  border-radius: 10px;
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 0 0 10px #000000;
+}
